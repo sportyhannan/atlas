@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { fetchTests } from "@/actions/test";
+import { fetchInvestigators } from "@/actions/investigators";
 
 export default async function Home() {
-  const tests = await fetchTests();
+  const investigators = await fetchInvestigators();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-sky-50 to-blue-100">
@@ -19,12 +19,28 @@ export default async function Home() {
           hackprinceton
         </h1>
         <p className="mt-4 text-lg text-sky-600">
-          something cool is coming
+          {investigators.length} investigator
+          {investigators.length === 1 ? "" : "s"} loaded
         </p>
-        <ul className="mt-8 space-y-2">
-          {tests.map((test) => (
-            <li key={test.id} className="text-sky-800">
-              {test.test_column}
+        <ul className="mx-auto mt-8 max-w-2xl space-y-3 text-left">
+          {investigators.map((inv) => (
+            <li
+              key={inv.id}
+              className="rounded-lg border border-sky-200 bg-white/70 p-4 text-sky-900"
+            >
+              <div className="flex items-baseline justify-between gap-4">
+                <strong>{inv.name}</strong>
+                <span className="text-sm text-sky-600">fit {inv.fit_score}</span>
+              </div>
+              <div className="text-sm text-sky-700">
+                {inv.site_name}
+                {inv.site_location ? ` · ${inv.site_location}` : ""}
+              </div>
+              <div className="mt-1 text-xs text-sky-600">
+                focus: {inv.focus.join(", ") || "—"} · enrollments{" "}
+                {inv.enrollments} · velocity/yr {inv.velocity_per_year} ·{" "}
+                {inv.status}
+              </div>
             </li>
           ))}
         </ul>
