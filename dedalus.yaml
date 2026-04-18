@@ -1,0 +1,55 @@
+# Atlas — Dedalus Agent Swarm Configuration
+# Each agent runs as an isolated container on Dedalus.
+# The search orchestrator fans out to all three in parallel at query time.
+#
+# Deploy: dedalus deploy --config dedalus.yaml
+
+project: atlas-trial-intelligence
+version: "1.0"
+region: us-east-1
+
+agents:
+  - name: enrichment-agent
+    description: Pulls publication velocity, NPI identity, and regulatory flags per investigator batch
+    route: /api/agents/enrich
+    runtime: nodejs18
+    memory: 512mb
+    timeout: 10s
+    concurrency: 50
+    env:
+      - NEXT_PUBLIC_SUPABASE_URL
+      - NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+      - DEDALUS_CONTAINER_ID: enrichment-agent-v1
+
+  - name: identity-resolver
+    description: Deduplicates investigator records across CT.gov / PubMed / NPI / OpenAlex using embedding cosine similarity
+    route: /api/agents/identity
+    runtime: nodejs18
+    memory: 1gb
+    timeout: 15s
+    concurrency: 20
+    env:
+      - NEXT_PUBLIC_SUPABASE_URL
+      - NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+      - DEDALUS_CONTAINER_ID: identity-resolver-v1
+
+  - name: scoring-agent
+    description: 8-factor fit scoring with K2 Think V2 — indication match, phase experience, velocity, publication rate, capacity, institutional track, responsiveness, regulatory rigor
+    route: /api/agents/score
+    runtime: nodejs18
+    memory: 512mb
+    timeout: 10s
+    concurrency: 100
+    env:
+      - NEXT_PUBLIC_SUPABASE_URL
+      - NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+      - DEDALUS_CONTAINER_ID: scoring-agent-v1
+
+orchestrator:
+  entrypoint: /api/search
+  fanout: parallel
+  agents:
+    - enrichment-agent
+    - identity-resolver
+    - scoring-agent
+  timeout: 30s

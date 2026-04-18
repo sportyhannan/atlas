@@ -38,3 +38,5 @@ export const AlertTriangle = (p: IconProps) => svg(<><path d="M10.3 3.3 2 21h20L
 export const Loader    = (p: IconProps) => svg(<><path d="M21 12a9 9 0 1 1-6.22-8.56"/></>, { ...p, className: (p.className ?? '') + ' spin' });
 export const Columns   = (p: IconProps) => svg(<><rect x={3} y={3} width={8} height={18} rx={1}/><rect x={13} y={3} width={8} height={18} rx={1}/></>, p);
 export const TrendingUp= (p: IconProps) => svg(<><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></>, p);
+export const Headphones= (p: IconProps) => svg(<><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></>, p);
+export const Play      = (p: IconProps) => svg(<><circle cx={12} cy={12} r={10}/><polygon points="10 8 16 12 10 16 10 8"/></>, p);
