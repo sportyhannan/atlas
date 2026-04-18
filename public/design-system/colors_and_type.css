@@ -1,0 +1,423 @@
+/* ==========================================================================
+   Atlas Design System — colors_and_type.css
+   The talent layer for global clinical trials.
+   ========================================================================== */
+
+/* ---------- Fonts (Google-hosted fallbacks; swap to local .woff2 if licensed) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ======================================================================
+     COLOR — NEUTRALS
+     Warm-cool neutral. Bone-white surfaces, graphite ink.
+     ====================================================================== */
+  --atlas-neutral-0:    #FFFFFF;
+  --atlas-neutral-25:   #FCFCFB;   /* page bg — very faint warm cast */
+  --atlas-neutral-50:   #F7F7F6;
+  --atlas-neutral-100:  #F1F2F1;
+  --atlas-neutral-200:  #E5E7E6;   /* default border */
+  --atlas-neutral-300:  #CDD0CE;
+  --atlas-neutral-400:  #9BA09D;
+  --atlas-neutral-500:  #6D7370;
+  --atlas-neutral-600:  #4B514E;
+  --atlas-neutral-700:  #313633;
+  --atlas-neutral-800:  #1E2220;
+  --atlas-neutral-900:  #0F1311;   /* deepest ink */
+
+  /* ======================================================================
+     COLOR — CLINICAL GREEN (primary accent)
+     Muted, slightly desaturated, reads as "validated" not "startup"
+     ====================================================================== */
+  --atlas-green-50:   #EDF6F0;
+  --atlas-green-100:  #D6EADD;
+  --atlas-green-200:  #A9D3B7;
+  --atlas-green-300:  #76B68D;
+  --atlas-green-400:  #479A6B;
+  --atlas-green-500:  #1F8456;
+  --atlas-green-600:  #0E7A4B;   /* ← BRAND primary */
+  --atlas-green-700:  #0A6039;
+  --atlas-green-800:  #074A2C;
+  --atlas-green-900:  #053520;
+
+  /* ======================================================================
+     COLOR — SEMANTIC (muted, audit-grade)
+     ====================================================================== */
+  --atlas-warn-50:    #FBF4E6;
+  --atlas-warn-500:   #B8892A;   /* ochre, not yellow */
+  --atlas-warn-700:   #7F5D17;
+
+  --atlas-danger-50:  #FAEDEA;
+  --atlas-danger-500: #B1452E;   /* brick, not red */
+  --atlas-danger-700: #7D2D1D;
+
+  --atlas-info-50:    #ECF1F6;
+  --atlas-info-500:   #335784;   /* slate blue, not cobalt */
+  --atlas-info-700:   #223D5E;
+
+  /* Success = primary green on purpose */
+  --atlas-success-50:  var(--atlas-green-50);
+  --atlas-success-500: var(--atlas-green-600);
+  --atlas-success-700: var(--atlas-green-800);
+
+  /* ======================================================================
+     COLOR — DATA VIZ (7-step categorical, CB-safe, print-safe)
+     ====================================================================== */
+  --atlas-viz-1: #0E7A4B;   /* clinical green */
+  --atlas-viz-2: #335784;   /* slate */
+  --atlas-viz-3: #B8892A;   /* ochre */
+  --atlas-viz-4: #7A4A8C;   /* muted plum */
+  --atlas-viz-5: #B1452E;   /* brick */
+  --atlas-viz-6: #2D6F7A;   /* teal */
+  --atlas-viz-7: #4B514E;   /* graphite */
+
+  /* ======================================================================
+     COLOR — SEMANTIC TOKENS (use these in components)
+     ====================================================================== */
+  --atlas-bg:            var(--atlas-neutral-25);
+  --atlas-bg-elevated:   var(--atlas-neutral-0);
+  --atlas-bg-sunken:     var(--atlas-neutral-50);
+  --atlas-bg-hover:      var(--atlas-neutral-100);
+  --atlas-bg-active:     var(--atlas-neutral-200);
+  --atlas-bg-inverse:    var(--atlas-neutral-900);
+
+  --atlas-fg:            var(--atlas-neutral-900);
+  --atlas-fg-strong:     var(--atlas-neutral-900);
+  --atlas-fg-muted:      var(--atlas-neutral-600);
+  --atlas-fg-subtle:     var(--atlas-neutral-500);
+  --atlas-fg-disabled:   var(--atlas-neutral-400);
+  --atlas-fg-on-accent:  var(--atlas-neutral-0);
+  --atlas-fg-inverse:    var(--atlas-neutral-0);
+
+  --atlas-border:         var(--atlas-neutral-200);
+  --atlas-border-strong:  var(--atlas-neutral-300);
+  --atlas-border-focus:   var(--atlas-green-600);
+
+  --atlas-accent:         var(--atlas-green-600);
+  --atlas-accent-hover:   var(--atlas-green-700);
+  --atlas-accent-active:  var(--atlas-green-800);
+  --atlas-accent-bg:      var(--atlas-green-50);
+
+  /* ======================================================================
+     TYPOGRAPHY — families
+     ====================================================================== */
+  --atlas-font-sans:   'Inter', ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --atlas-font-serif:  'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --atlas-font-mono:   'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* ======================================================================
+     TYPOGRAPHY — raw scale (px units, data-dense)
+     ====================================================================== */
+  --atlas-text-2xs:  11px;   /* metadata, table captions */
+  --atlas-text-xs:   12px;   /* badges, footnotes */
+  --atlas-text-sm:   13px;   /* dense table rows, secondary labels */
+  --atlas-text-base: 14px;   /* product default body */
+  --atlas-text-md:   15px;   /* body on marketing site */
+  --atlas-text-lg:   17px;   /* section label */
+  --atlas-text-xl:   20px;   /* card title */
+  --atlas-text-2xl:  24px;   /* h3 */
+  --atlas-text-3xl:  30px;   /* h2 */
+  --atlas-text-4xl:  40px;   /* h1 (product) */
+  --atlas-text-5xl:  56px;   /* marketing h1 */
+  --atlas-text-6xl:  72px;   /* marketing hero */
+  --atlas-text-7xl:  96px;   /* marketing hero, occasionally */
+
+  /* Line heights */
+  --atlas-lh-tight:   1.10;
+  --atlas-lh-snug:    1.25;
+  --atlas-lh-normal:  1.45;
+  --atlas-lh-relaxed: 1.60;
+
+  /* Tracking */
+  --atlas-tracking-tight:  -0.02em;
+  --atlas-tracking-snug:   -0.01em;
+  --atlas-tracking-normal: 0;
+  --atlas-tracking-wide:   0.04em;  /* eyebrow labels */
+  --atlas-tracking-wider:  0.08em;
+
+  /* ======================================================================
+     SPACING — 4px grid
+     ====================================================================== */
+  --atlas-space-0:   0;
+  --atlas-space-1:   4px;
+  --atlas-space-2:   8px;
+  --atlas-space-3:   12px;
+  --atlas-space-4:   16px;
+  --atlas-space-5:   20px;
+  --atlas-space-6:   24px;
+  --atlas-space-8:   32px;
+  --atlas-space-10:  40px;
+  --atlas-space-12:  48px;
+  --atlas-space-16:  64px;
+  --atlas-space-20:  80px;
+  --atlas-space-24:  96px;
+
+  /* ======================================================================
+     RADII
+     ====================================================================== */
+  --atlas-radius-xs:   2px;
+  --atlas-radius-sm:   4px;    /* inputs, buttons, badges */
+  --atlas-radius-md:   8px;    /* cards, panels */
+  --atlas-radius-lg:   12px;   /* modals, global search */
+  --atlas-radius-full: 9999px; /* pills */
+
+  /* ======================================================================
+     SHADOWS — cool-neutral, 4-step
+     ====================================================================== */
+  --atlas-shadow-xs: 0 1px 0 rgba(17,24,39,0.04);
+  --atlas-shadow-sm: 0 1px 2px rgba(17,24,39,0.06), 0 1px 3px rgba(17,24,39,0.04);
+  --atlas-shadow-md: 0 4px 12px rgba(17,24,39,0.08), 0 2px 4px rgba(17,24,39,0.04);
+  --atlas-shadow-lg: 0 12px 32px rgba(17,24,39,0.12), 0 4px 12px rgba(17,24,39,0.06);
+  --atlas-shadow-focus: 0 0 0 2px var(--atlas-bg), 0 0 0 4px var(--atlas-green-600);
+  --atlas-shadow-inset-pressed: inset 0 1px 0 rgba(0,0,0,0.08);
+
+  /* ======================================================================
+     MOTION
+     ====================================================================== */
+  --atlas-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --atlas-dur-fast:   80ms;
+  --atlas-dur-base:   140ms;
+  --atlas-dur-slow:   240ms;
+
+  /* ======================================================================
+     LAYOUT
+     ====================================================================== */
+  --atlas-nav-width:          240px;
+  --atlas-nav-width-collapsed: 56px;
+  --atlas-topbar-height:      56px;
+  --atlas-inspector-width:    400px;
+  --atlas-app-max-width:      1440px;
+  --atlas-marketing-max-width: 1200px;
+  --atlas-row-height-compact: 32px;
+  --atlas-row-height-base:    40px;
+}
+
+/* ==========================================================================
+   DARK MODE — first-class, not an afterthought
+   Many users read patient dossiers in dimmed rooms.
+   ========================================================================== */
+[data-theme="dark"] {
+  --atlas-bg:            #0B0E0D;
+  --atlas-bg-elevated:   #141917;
+  --atlas-bg-sunken:     #090B0A;
+  --atlas-bg-hover:      #1C221F;
+  --atlas-bg-active:     #262D29;
+  --atlas-bg-inverse:    var(--atlas-neutral-0);
+
+  --atlas-fg:            #E8EAE9;
+  --atlas-fg-strong:     #FAFBFA;
+  --atlas-fg-muted:      #9BA09D;
+  --atlas-fg-subtle:     #6D7370;
+  --atlas-fg-disabled:   #4B514E;
+  --atlas-fg-on-accent:  var(--atlas-neutral-0);
+  --atlas-fg-inverse:    var(--atlas-neutral-900);
+
+  --atlas-border:         #262D29;
+  --atlas-border-strong:  #373E3A;
+  --atlas-border-focus:   var(--atlas-green-400);
+
+  --atlas-accent:         var(--atlas-green-500);
+  --atlas-accent-hover:   var(--atlas-green-400);
+  --atlas-accent-active:  var(--atlas-green-300);
+  --atlas-accent-bg:      rgba(14,122,75,0.14);
+}
+
+/* ==========================================================================
+   BASE — applies to any page that imports this file
+   ========================================================================== */
+html, body {
+  background: var(--atlas-bg);
+  color: var(--atlas-fg);
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-base);
+  line-height: var(--atlas-lh-normal);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ==========================================================================
+   SEMANTIC TYPE ROLES
+   Use these class names or copy the styles; each one encodes a real use
+   case in the product/marketing site. Sentence case always.
+   ========================================================================== */
+
+/* Marketing — editorial display, Fraunces variable */
+.atlas-display-xl {
+  font-family: var(--atlas-font-serif);
+  font-size: var(--atlas-text-7xl);
+  line-height: var(--atlas-lh-tight);
+  letter-spacing: var(--atlas-tracking-tight);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  color: var(--atlas-fg-strong);
+}
+.atlas-display-lg {
+  font-family: var(--atlas-font-serif);
+  font-size: var(--atlas-text-6xl);
+  line-height: var(--atlas-lh-tight);
+  letter-spacing: var(--atlas-tracking-tight);
+  font-weight: 400;
+  font-variation-settings: "opsz" 144;
+  color: var(--atlas-fg-strong);
+}
+.atlas-display-md {
+  font-family: var(--atlas-font-serif);
+  font-size: var(--atlas-text-5xl);
+  line-height: var(--atlas-lh-tight);
+  letter-spacing: var(--atlas-tracking-tight);
+  font-weight: 400;
+  color: var(--atlas-fg-strong);
+}
+
+/* Product — headings */
+.atlas-h1 {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-4xl);
+  line-height: var(--atlas-lh-tight);
+  letter-spacing: var(--atlas-tracking-tight);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+}
+.atlas-h2 {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-3xl);
+  line-height: var(--atlas-lh-snug);
+  letter-spacing: var(--atlas-tracking-snug);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+}
+.atlas-h3 {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-2xl);
+  line-height: var(--atlas-lh-snug);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+}
+.atlas-h4 {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-xl);
+  line-height: var(--atlas-lh-snug);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+}
+
+/* Product — body */
+.atlas-body {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-base);
+  line-height: var(--atlas-lh-normal);
+  font-weight: 400;
+  color: var(--atlas-fg);
+}
+.atlas-body-sm {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-sm);
+  line-height: var(--atlas-lh-normal);
+  color: var(--atlas-fg);
+}
+.atlas-body-lg {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-md);
+  line-height: var(--atlas-lh-relaxed);
+  color: var(--atlas-fg);
+}
+
+/* Product — utility */
+.atlas-label {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-xs);
+  line-height: var(--atlas-lh-snug);
+  font-weight: 500;
+  color: var(--atlas-fg-muted);
+}
+.atlas-eyebrow {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-2xs);
+  line-height: var(--atlas-lh-snug);
+  letter-spacing: var(--atlas-tracking-wider);
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--atlas-fg-muted);
+}
+.atlas-caption {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-xs);
+  line-height: var(--atlas-lh-normal);
+  color: var(--atlas-fg-muted);
+}
+
+/* Mono — identifiers, NCT numbers, DOIs, query syntax */
+.atlas-mono {
+  font-family: var(--atlas-font-mono);
+  font-size: 0.92em;   /* visually balance vs Inter */
+  font-weight: 400;
+  color: var(--atlas-fg);
+}
+.atlas-mono-sm {
+  font-family: var(--atlas-font-mono);
+  font-size: var(--atlas-text-xs);
+  color: var(--atlas-fg-muted);
+}
+
+/* Semantic aliases — drop-in for raw element selectors */
+h1 { /* inherit atlas-h1 by default */
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-4xl);
+  line-height: var(--atlas-lh-tight);
+  letter-spacing: var(--atlas-tracking-tight);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+  margin: 0 0 var(--atlas-space-4) 0;
+}
+h2 {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-3xl);
+  line-height: var(--atlas-lh-snug);
+  letter-spacing: var(--atlas-tracking-snug);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+  margin: 0 0 var(--atlas-space-3) 0;
+}
+h3 {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-2xl);
+  line-height: var(--atlas-lh-snug);
+  font-weight: 600;
+  color: var(--atlas-fg-strong);
+  margin: 0 0 var(--atlas-space-2) 0;
+}
+p {
+  font-family: var(--atlas-font-sans);
+  font-size: var(--atlas-text-base);
+  line-height: var(--atlas-lh-normal);
+  color: var(--atlas-fg);
+  margin: 0 0 var(--atlas-space-3) 0;
+  text-wrap: pretty;
+}
+code, kbd, samp {
+  font-family: var(--atlas-font-mono);
+  font-size: 0.92em;
+  background: var(--atlas-bg-sunken);
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-xs);
+  padding: 1px 4px;
+}
+a {
+  color: var(--atlas-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color var(--atlas-dur-base) var(--atlas-ease);
+}
+a:hover { color: var(--atlas-accent-hover); }
+a:focus-visible {
+  outline: 2px solid var(--atlas-border-focus);
+  outline-offset: 2px;
+  border-radius: var(--atlas-radius-xs);
+}
+
+/* Selection */
+::selection {
+  background: var(--atlas-green-100);
+  color: var(--atlas-green-900);
+}

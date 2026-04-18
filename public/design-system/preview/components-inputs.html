@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Inputs</title><link rel="stylesheet" href="_shared.css"></head>
+<body><div class="card" style="padding:22px 24px;">
+  <div class="eyebrow" style="margin-bottom:12px;">Form inputs · rest, focus, filled</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+    <div>
+      <label style="font:500 11px Inter;color:#6D7370;display:block;margin-bottom:6px;">Query</label>
+      <input placeholder="e.g. Phase 3 NSCLC, Seoul" style="width:100%;height:32px;padding:0 10px;font:400 13px Inter;background:#fff;border:1px solid #CDD0CE;border-radius:4px;box-sizing:border-box;color:#0F1311;">
+    </div>
+    <div>
+      <label style="font:500 11px Inter;color:#6D7370;display:block;margin-bottom:6px;">Query (focus)</label>
+      <input value="Phase 3 HER2+ breast cancer" style="width:100%;height:32px;padding:0 10px;font:400 13px Inter;background:#fff;border:1px solid #0E7A4B;border-radius:4px;box-sizing:border-box;color:#0F1311;outline:2px solid rgba(14,122,75,.2);outline-offset:0;">
+    </div>
+    <div>
+      <label style="font:500 11px Inter;color:#6D7370;display:block;margin-bottom:6px;">Query (filled)</label>
+      <input value="BRCA1 hereditary" style="width:100%;height:32px;padding:0 10px;font:400 13px Inter;background:#fff;border:1px solid #CDD0CE;border-radius:4px;box-sizing:border-box;color:#0F1311;">
+    </div>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:12px;align-items:center;">
+    <div style="display:flex;align-items:center;gap:8px;"><input type="checkbox" checked style="accent-color:#0E7A4B;width:14px;height:14px;"><span style="font:400 13px Inter;">Verified only</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><input type="radio" name="r" checked style="accent-color:#0E7A4B;width:14px;height:14px;"><span style="font:400 13px Inter;">All phases</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><input type="radio" name="r" style="accent-color:#0E7A4B;width:14px;height:14px;"><span style="font:400 13px Inter;">Phase 3 only</span></div>
+    <!-- Toggle -->
+    <div style="display:flex;align-items:center;gap:8px;margin-left:auto;"><span style="font:400 13px Inter;">Global</span><div style="width:32px;height:18px;background:#0E7A4B;border-radius:9999px;position:relative;"><div style="position:absolute;top:2px;right:2px;width:14px;height:14px;background:#fff;border-radius:50%;"></div></div></div>
+  </div>
+</div></body></html>
