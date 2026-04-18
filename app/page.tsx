@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { fetchTests } from "@/actions/test";
 
 export default async function Home() {
@@ -6,7 +7,15 @@ export default async function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-sky-50 to-blue-100">
       <div className="text-center">
-        <h1 className="text-6xl font-bold tracking-tight text-sky-900">
+        <Image
+          src="/hackprinceton.png"
+          alt="HackPrinceton"
+          width={300}
+          height={300}
+          priority
+          className="mx-auto"
+        />
+        <h1 className="mt-6 text-6xl font-bold tracking-tight text-sky-900">
           hackprinceton
         </h1>
         <p className="mt-4 text-lg text-sky-600">
