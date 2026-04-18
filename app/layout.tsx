@@ -1,33 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "HackMTC",
-  description: "Created with love",
+  title: "Atlas — The talent layer for global clinical trials",
+  description: "Moneyball for clinical trial investigators. Natural-language search over 2M+ investigators across ClinicalTrials.gov, PubMed, NPI, and FDA databases.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" style={{ height: "100%" }}>
+      <body style={{ height: "100%", margin: 0 }}>{children}</body>
     </html>
   );
 }

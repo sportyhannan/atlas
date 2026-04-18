@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Atlas — Design system overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" href="assets/logo-mark.svg"/>
+  <link rel="stylesheet" href="colors_and_type.css"/>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--atlas-bg); }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 48px 32px 96px; }
+    header.page {
+      display: flex; align-items: center; gap: 20px;
+      padding: 20px 0 28px; border-bottom: 1px solid var(--atlas-border);
+      margin-bottom: 40px;
+    }
+    header.page .brand-block { flex:1; }
+    header.page h1 {
+      font-size: 40px; font-weight: 600; letter-spacing: -0.02em;
+      margin: 6px 0 4px;
+    }
+    header.page p { color: var(--atlas-fg-muted); font-size: 15px; margin: 0; max-width: 640px; }
+    header.page .meta { margin-left: auto; text-align: right; }
+    header.page .meta .mono { font-size: 11px; color: var(--atlas-fg-muted); display:block; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px;}
+
+    section { margin-top: 56px; }
+    .section-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid var(--atlas-border); padding-bottom: 10px; margin-bottom: 20px;
+    }
+    .section-head h2 { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 600; color: var(--atlas-fg-muted); margin: 0; }
+    .section-head .note { font-size: 12px; color: var(--atlas-fg-subtle); font-family: var(--atlas-font-mono); }
+
+    .grid { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+    .grid.one { grid-template-columns: 1fr; }
+    .grid.three { grid-template-columns: repeat(3, 1fr); }
+
+    .card-wrap {
+      background: var(--atlas-bg-elevated);
+      border: 1px solid var(--atlas-border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--atlas-shadow-sm);
+    }
+    .card-wrap .label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 10px 14px; border-bottom: 1px solid var(--atlas-border);
+      background: var(--atlas-bg-sunken);
+    }
+    .card-wrap .label strong { font-size: 13px; font-weight: 600; }
+    .card-wrap .label .sub { font-size: 11px; color: var(--atlas-fg-muted); }
+    .card-wrap iframe { display: block; width: 100%; border: 0; background: var(--atlas-bg-elevated); }
+
+    .app-frame {
+      background: var(--atlas-bg-elevated);
+      border: 1px solid var(--atlas-border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--atlas-shadow-md);
+      position: relative;
+    }
+    .app-frame .chrome {
+      display:flex; align-items:center; gap:8px; padding:10px 14px;
+      background: var(--atlas-bg-sunken); border-bottom: 1px solid var(--atlas-border);
+    }
+    .app-frame .dot { width:10px; height:10px; border-radius:50%; background:#D6D6D6; }
+    .app-frame .dot.r { background:#E86F59;}
+    .app-frame .dot.y { background:#E6B14B;}
+    .app-frame .dot.g { background:#7AC36E;}
+    .app-frame .url {
+      margin-left: 12px; padding: 4px 10px; background: var(--atlas-bg-elevated);
+      border: 1px solid var(--atlas-border); border-radius: 4px;
+      font-family: var(--atlas-font-mono); font-size: 11px; color: var(--atlas-fg-muted);
+    }
+    .app-frame iframe { display: block; width: 100%; height: 900px; border: 0; }
+    .app-frame .open {
+      position: absolute; top: 12px; right: 16px;
+      font-size: 12px; color: var(--atlas-accent); text-decoration: none;
+      background: var(--atlas-bg-elevated); border: 1px solid var(--atlas-border);
+      border-radius: 4px; padding: 4px 10px;
+    }
+
+    .callout {
+      padding: 20px 22px; background: var(--atlas-bg-elevated);
+      border: 1px solid var(--atlas-border); border-left: 3px solid var(--atlas-accent);
+      border-radius: 4px; margin-bottom: 24px;
+    }
+    .callout h3 { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+    .callout p { margin: 0; color: var(--atlas-fg-muted); font-size: 13px; line-height: 1.55; }
+
+    .rules {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .rule {
+      padding: 16px; background: var(--atlas-bg-elevated);
+      border: 1px solid var(--atlas-border); border-radius: 8px;
+    }
+    .rule .n { font-family: var(--atlas-font-mono); font-size: 11px; color: var(--atlas-accent); font-weight: 600; }
+    .rule h4 { margin: 6px 0 4px; font-size: 13px; font-weight: 600; }
+    .rule p { margin: 0; font-size: 12px; color: var(--atlas-fg-muted); line-height: 1.5; }
+
+    .toc {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(252,252,251,0.88);
+      backdrop-filter: saturate(1.2) blur(8px);
+      border-bottom: 1px solid var(--atlas-border);
+      padding: 12px 32px;
+      display: flex; gap: 24px; align-items: center;
+      font-size: 13px;
+    }
+    .toc a { color: var(--atlas-fg-muted); text-decoration: none; }
+    .toc a:hover { color: var(--atlas-fg); }
+    .toc .brand { display:flex; align-items:center; gap:8px; font-weight:600; color: var(--atlas-fg); margin-right: auto; }
+    .toc .brand img { width: 22px; height: 22px; }
+  </style>
+</head>
+<body>
+
+<nav class="toc">
+  <span class="brand"><img src="assets/logo-mark.svg" alt=""/>Atlas Design System</span>
+  <a href="#brand">Brand</a>
+  <a href="#color">Color</a>
+  <a href="#type">Type</a>
+  <a href="#spacing">Spacing</a>
+  <a href="#components">Components</a>
+  <a href="#app">Live app</a>
+  <a href="#rules">Rules</a>
+</nav>
+
+<div class="wrap">
+
+  <header class="page">
+    <img src="assets/logo-mark.svg" alt="" width="56" height="56"/>
+    <div class="brand-block">
+      <div class="atlas-eyebrow">Design system v0.1</div>
+      <h1>Atlas — The talent layer for clinical trials</h1>
+      <p>A complete design system for Atlas: foundations, components, and a working UI kit. Everything below is one scrollable view of what's in the project.</p>
+    </div>
+    <div class="meta">
+      <span class="mono">Files</span>
+      <div style="font-size:12px;" class="atlas-mono">README.md · colors_and_type.css · SKILL.md · preview/ · ui_kits/atlas_app/</div>
+    </div>
+  </header>
+
+  <!-- BRAND -->
+  <section id="brand">
+    <div class="section-head"><h2>01 · Brand</h2><span class="note">logo · wordmark · icons</span></div>
+    <div class="grid">
+      <div class="card-wrap"><div class="label"><strong>Logo</strong><span class="sub">Mark + wordmark + inverse</span></div><iframe src="preview/brand-logo.html" style="height:140px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Wordmark</strong><span class="sub">Inter vs Fraunces</span></div><iframe src="preview/brand-wordmark.html" style="height:160px;"></iframe></div>
+      <div class="card-wrap" style="grid-column: 1 / -1;"><div class="label"><strong>Icons</strong><span class="sub">Lucide · 1.5px stroke · 20px</span></div><iframe src="preview/brand-icons.html" style="height:150px;"></iframe></div>
+    </div>
+  </section>
+
+  <!-- COLOR -->
+  <section id="color">
+    <div class="section-head"><h2>02 · Color</h2><span class="note">bone-white + graphite + clinical green</span></div>
+    <div class="grid one">
+      <div class="card-wrap"><div class="label"><strong>Neutrals</strong><span class="sub">Warm-cool graphite, 0–900</span></div><iframe src="preview/color-neutrals.html" style="height:160px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Clinical green</strong><span class="sub">Primary accent — 600 is brand</span></div><iframe src="preview/color-green.html" style="height:190px;"></iframe></div>
+    </div>
+    <div class="grid" style="margin-top:14px;">
+      <div class="card-wrap"><div class="label"><strong>Semantic colors</strong><span class="sub">Muted, audit-grade</span></div><iframe src="preview/color-semantic.html" style="height:170px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Data viz palette</strong><span class="sub">7-step, CB-safe, print-safe</span></div><iframe src="preview/color-dataviz.html" style="height:190px;"></iframe></div>
+    </div>
+    <div class="grid one" style="margin-top:14px;">
+      <div class="card-wrap"><div class="label"><strong>Semantic tokens</strong><span class="sub">Light + dark pairs</span></div><iframe src="preview/color-tokens.html" style="height:230px;"></iframe></div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type">
+    <div class="section-head"><h2>03 · Typography</h2><span class="note">Inter · Fraunces · IBM Plex Mono</span></div>
+    <div class="grid one">
+      <div class="card-wrap"><div class="label"><strong>Display</strong><span class="sub">Fraunces — marketing only</span></div><iframe src="preview/type-display.html" style="height:180px;"></iframe></div>
+    </div>
+    <div class="grid" style="margin-top:14px;">
+      <div class="card-wrap"><div class="label"><strong>Headings</strong><span class="sub">h1–h4 · Inter</span></div><iframe src="preview/type-headings.html" style="height:240px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Body</strong><span class="sub">Body, caption, eyebrow</span></div><iframe src="preview/type-body.html" style="height:240px;"></iframe></div>
+    </div>
+    <div class="grid one" style="margin-top:14px;">
+      <div class="card-wrap"><div class="label"><strong>Mono</strong><span class="sub">NCT, NPI, DOI, query syntax</span></div><iframe src="preview/type-mono.html" style="height:210px;"></iframe></div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section id="spacing">
+    <div class="section-head"><h2>04 · Spacing, radii, elevation</h2><span class="note">4px base grid</span></div>
+    <div class="grid one">
+      <div class="card-wrap"><div class="label"><strong>Spacing scale</strong><span class="sub">1 → 16 · multiples of 4px</span></div><iframe src="preview/spacing-scale.html" style="height:190px;"></iframe></div>
+    </div>
+    <div class="grid" style="margin-top:14px;">
+      <div class="card-wrap"><div class="label"><strong>Radii</strong><span class="sub">2–12 px · pill reserved for badges</span></div><iframe src="preview/spacing-radii.html" style="height:170px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Elevation</strong><span class="sub">4-step cool-neutral shadows</span></div><iframe src="preview/spacing-shadows.html" style="height:180px;"></iframe></div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section id="components">
+    <div class="section-head"><h2>05 · Components</h2><span class="note">reusable building blocks</span></div>
+
+    <div class="grid">
+      <div class="card-wrap"><div class="label"><strong>Buttons</strong><span class="sub">Primary · secondary · ghost · danger</span></div><iframe src="preview/component-buttons.html" style="height:200px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Inputs</strong><span class="sub">Default · focused · error</span></div><iframe src="preview/component-inputs.html" style="height:220px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Badges &amp; status</strong><span class="sub">Status dots · phase tags · citation</span></div><iframe src="preview/component-badges.html" style="height:150px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Global search</strong><span class="sub">NL query · ⌘K · 12 px radius</span></div><iframe src="preview/component-searchbar.html" style="height:170px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Investigator card</strong><span class="sub">Canonical data object</strong></span></div><iframe src="preview/component-investigator-card.html" style="height:180px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Data table</strong><span class="sub">Compact rows · hairline dividers</span></div><iframe src="preview/component-table.html" style="height:200px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Fit score</strong><span class="sub">Signature donut + breakdown</span></div><iframe src="preview/component-fit-score.html" style="height:200px;"></iframe></div>
+      <div class="card-wrap"><div class="label"><strong>Citation block</strong><span class="sub">Every claim linked to a source</span></div><iframe src="preview/component-citation.html" style="height:170px;"></iframe></div>
+    </div>
+  </section>
+
+  <!-- LIVE APP -->
+  <section id="app">
+    <div class="section-head"><h2>06 · Live app — investigator search</h2><span class="note">the whole product, running</span></div>
+    <div class="callout">
+      <h3>This is the real, interactive UI kit.</h3>
+      <p>Click any row in the table and the right-hand dossier updates. Hover rows, remove filter chips, toggle the sort control. Everything below is rendered from the same tokens and components shown above.</p>
+    </div>
+    <div class="app-frame">
+      <div class="chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">atlas.app/search</span></div>
+      <a class="open" href="ui_kits/atlas_app/index.html" target="_blank">Open full size ↗</a>
+      <iframe src="ui_kits/atlas_app/index.html" title="Atlas web app"></iframe>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section id="rules">
+    <div class="section-head"><h2>07 · Design rules at a glance</h2><span class="note">the non-negotiables</span></div>
+    <div class="rules">
+      <div class="rule"><div class="n">01</div><h4>Clinical green, always</h4><p>#0E7A4B is the only accent. No blue-to-purple gradients, ever.</p></div>
+      <div class="rule"><div class="n">02</div><h4>No emoji in product</h4><p>This is a clinical instrument. Status is a colored dot, not an icon face.</p></div>
+      <div class="rule"><div class="n">03</div><h4>Every claim cites</h4><p>NCT, PubMed, Form 1572 — rendered in IBM Plex Mono, linked inline.</p></div>
+      <div class="rule"><div class="n">04</div><h4>Dense is a virtue</h4><p>32 px default row height. 14 px default body. Users want more on screen.</p></div>
+      <div class="rule"><div class="n">05</div><h4>Restrained motion</h4><p>140 ms standard ease. No bounce. No scroll-triggered animation.</p></div>
+      <div class="rule"><div class="n">06</div><h4>Sentence case</h4><p>"Run search" not "Run Search." ALL CAPS only on eyebrow labels.</p></div>
+      <div class="rule"><div class="n">07</div><h4>Numerals ≥ 2</h4><p>"22 sites, 8 countries" beats "twenty-two sites." Always tabular figures.</p></div>
+      <div class="rule"><div class="n">08</div><h4>No AI-generated imagery</h4><p>Atlas's credibility comes from real evidence. Fake hero illustrations undermine it.</p></div>
+      <div class="rule"><div class="n">09</div><h4>Max radius 12 px</h4><p>Inputs 4, cards 8, modals 12. Full radius reserved for pills.</p></div>
+    </div>
+  </section>
+
+  <footer style="margin-top:72px; padding-top:24px; border-top:1px solid var(--atlas-border); display:flex; justify-content:space-between; font-size:12px; color:var(--atlas-fg-muted);">
+    <span>Atlas Design System · v0.1</span>
+    <span class="atlas-mono">Source: README.md · colors_and_type.css · SKILL.md</span>
+  </footer>
+
+</div>
+</body>
+</html>
