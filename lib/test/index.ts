@@ -1,5 +1,5 @@
 import type { Test } from "@/types/test";
-import { createClient } from "../supabase/server";
+import { createClient } from "../supabase";
 
 export async function getTests(): Promise<Test[]> {
   try {
