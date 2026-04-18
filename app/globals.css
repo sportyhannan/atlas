@@ -312,6 +312,60 @@ a:hover { color: var(--atlas-accent-hover); }
 /* ── Divider ── */
 .divider { height: 1px; background: var(--atlas-border); margin: 16px 0; }
 
+/* ── Stats row ── */
+.stats-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.stat-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 6px;
+  background: var(--atlas-bg-elevated); border: 1px solid var(--atlas-border);
+  font-size: 12px; color: var(--atlas-fg-muted); box-shadow: var(--atlas-shadow-xs);
+}
+.stat-pill strong { color: var(--atlas-fg); font-weight: 600; font-family: var(--atlas-font-mono); font-size: 13px; }
+.stat-pill .stat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--atlas-green-500); flex-shrink: 0; animation: pulse 2s infinite; }
+
+/* ── Registry source tags ── */
+.registry-bar { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--atlas-neutral-100); }
+.registry-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 22px; padding: 0 8px; border-radius: 4px;
+  font-family: var(--atlas-font-mono); font-size: 10px; font-weight: 600;
+  letter-spacing: .04em; border: 1px solid;
+}
+.registry-tag-ct  { background: #EBF4FF; color: #1E4D91; border-color: #BEDCFF; }
+.registry-tag-pm  { background: #F0F7F4; color: #1A5C3A; border-color: #A9D3B7; }
+.registry-tag-oa  { background: #FFF7ED; color: #92400E; border-color: #FCD9A8; }
+.registry-tag-npi { background: #F5F3FF; color: #4C1D95; border-color: #DDD6FE; }
+.registry-tag-fda { background: var(--atlas-danger-50); color: var(--atlas-danger-700); border-color: #F9C4B8; }
+.registry-tag-who { background: #EFF6FF; color: #1E40AF; border-color: #BFDBFE; }
+.registry-tag-cms { background: var(--atlas-neutral-50); color: var(--atlas-neutral-700); border-color: var(--atlas-neutral-200); }
+
+/* ── Section source attribution ── */
+.section-source { font-size: 10px; font-family: var(--atlas-font-mono); color: var(--atlas-fg-subtle); letter-spacing: .03em; margin-top: 6px; }
+
+/* ── Skeleton loading rows ── */
+.skeleton-row td { padding: 10px 12px; }
+.skeleton-cell {
+  height: 14px; border-radius: 3px; background: var(--atlas-neutral-100);
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+/* ── Flag danger (compare view) ── */
+.flag-danger { color: var(--atlas-danger-500); }
+
+/* ── Phase chips ── */
+.phase-chip {
+  display: inline-flex; align-items: center;
+  height: 16px; padding: 0 5px; border-radius: 2px;
+  font-size: 9px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  background: var(--atlas-info-50); color: var(--atlas-info-700);
+  font-family: var(--atlas-font-mono);
+}
+
 /* ── Utilities ── */
 .mono   { font-family: var(--atlas-font-mono); }
 .muted  { color: var(--atlas-fg-muted); }

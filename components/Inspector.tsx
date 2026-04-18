@@ -1,5 +1,5 @@
 'use client';
-import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import type { Investigator } from '@/types/investigator';
 import * as Icon from './Icons';
 
@@ -70,7 +70,8 @@ export default function Inspector({ inv, onClose, onCompare, compareIds }: Props
     value: v,
   }));
 
-  const velocityData = inv.velocityHistory.map((v, i) => ({ i, v }));
+  const startYear = 2026 - inv.velocityHistory.length;
+  const velocityData = inv.velocityHistory.map((v, i) => ({ year: startYear + i, v }));
 
   const inCompare = compareIds.includes(inv.id);
 
@@ -112,13 +113,25 @@ export default function Inspector({ inv, onClose, onCompare, compareIds }: Props
               </span>
               <span className="muted mono" style={{ fontSize: 11 }}>{inv.activeTrials} active trials</span>
             </div>
+            {/* Data provenance chips */}
+            <div style={{ display: 'flex', gap: 4, marginTop: 6, flexWrap: 'wrap' }}>
+              {inv.recentTrials.length > 0 && <span className="registry-tag registry-tag-ct">CT.gov</span>}
+              {inv.publications.length > 0 && <span className="registry-tag registry-tag-pm">PubMed</span>}
+              {inv.publications.length > 0 && <span className="registry-tag registry-tag-oa">OpenAlex</span>}
+              {inv.npi && <span className="registry-tag registry-tag-npi">NPI</span>}
+              {inv.has483Flag && <span className="registry-tag registry-tag-fda">FDA 483</span>}
+              {(inv.rareDiseaseExpert || inv.country !== 'US') && <span className="registry-tag registry-tag-who">WHO ICTRP</span>}
+            </div>
           </div>
         </div>
 
         <div className="divider"/>
 
         {/* Score breakdown */}
-        <div className="inspector-section-title">Score breakdown</div>
+        <div className="inspector-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>Score breakdown</span>
+          <span className="section-source">Computed across 6 registries</span>
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
           {scoreEntries.map(({ key, label, value }) => (
             <div key={key} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -158,10 +171,18 @@ export default function Inspector({ inv, onClose, onCompare, compareIds }: Props
         <div className="divider"/>
 
         {/* Enrollment velocity sparkline */}
-        <div className="inspector-section-title">Enrollment velocity</div>
-        <div style={{ height: 60 }}>
+        <div className="inspector-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>Enrollment velocity</span>
+          <span className="section-source">Source: ClinicalTrials.gov · WHO ICTRP</span>
+        </div>
+        <div style={{ height: 64 }}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={velocityData} margin={{ top: 0, bottom: 0, left: 0, right: 0 }}>
+            <BarChart data={velocityData} margin={{ top: 0, bottom: 16, left: 0, right: 0 }}>
+              <XAxis
+                dataKey="year"
+                tick={{ fontSize: 9, fontFamily: 'var(--atlas-font-mono)', fill: 'var(--atlas-fg-muted)' }}
+                axisLine={false} tickLine={false}
+              />
               <Bar dataKey="v" radius={[2, 2, 0, 0]}>
                 {velocityData.map((_, i) => (
                   <Cell key={i} fill={i === velocityData.length - 1 ? '#0E7A4B' : '#A9D3B7'} />
@@ -169,21 +190,20 @@ export default function Inspector({ inv, onClose, onCompare, compareIds }: Props
               </Bar>
               <Tooltip
                 contentStyle={{ background: 'var(--atlas-bg-elevated)', border: '1px solid var(--atlas-border)', borderRadius: 4, fontSize: 11, fontFamily: 'var(--atlas-font-mono)' }}
-                formatter={(v) => [`${v} enrollments`, '']}
+                formatter={(v) => [`${v} enrollments/yr`, '']}
                 cursor={{ fill: 'var(--atlas-bg-hover)' }}
               />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        <div className="muted mono" style={{ fontSize: 11, marginTop: 4, display: 'flex', justifyContent: 'space-between' }}>
-          <span>{2026 - inv.velocityHistory.length + 1} Q1</span>
-          <span>2026 Q1</span>
-        </div>
 
         <div className="divider"/>
 
         {/* Publications */}
-        <div className="inspector-section-title">Recent publications</div>
+        <div className="inspector-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>Recent publications</span>
+          <span className="section-source">Source: PubMed · OpenAlex</span>
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
           {inv.publications.map((pub, i) => (
             <div key={pub.pubmedId} style={{
@@ -211,7 +231,10 @@ export default function Inspector({ inv, onClose, onCompare, compareIds }: Props
         <div className="divider"/>
 
         {/* Trials */}
-        <div className="inspector-section-title">Trial history</div>
+        <div className="inspector-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <span>Trial history</span>
+          <span className="section-source">Source: ClinicalTrials.gov</span>
+        </div>
         {inv.recentTrials.map(trial => (
           <div key={trial.nctId} style={{
             padding: '8px 10px', borderRadius: 6, marginBottom: 6,

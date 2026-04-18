@@ -66,14 +66,10 @@ export default function SearchView({
             <h1 className="page-title">Investigator search</h1>
             <div className="page-sub">
               {isSearching
-                ? <><span className="spin" style={{ display: 'inline-block', marginRight: 6 }}>↻</span> Querying registries…</>
+                ? <><span className="spin" style={{ display: 'inline-block', marginRight: 6 }}>↻</span> Querying 6 live registries…</>
                 : result
-                  ? <><span className="mono">{displayCount.toLocaleString()}</span> investigators match across{' '}
-                      <span className="mono">{result.registriesQueried}</span> registries ·{' '}
-                      {result.risingStarCount > 0 && <><span className="mono">{result.risingStarCount}</span> rising stars ·{' '}</>}
-                      <span className="muted">updated just now</span>
-                    </>
-                  : <span className="muted">Search to find investigators</span>
+                  ? <>Query returned across <span className="mono">{result.registriesQueried}</span> registries · <span className="muted">updated just now</span></>
+                  : <span className="muted">Search 2.1M+ investigators across 6 live registries</span>
               }
             </div>
           </div>
@@ -82,6 +78,28 @@ export default function SearchView({
             <button className="btn btn-primary"><Icon.Plus size={14}/>Save as shortlist</button>
           </div>
         </div>
+
+        {/* Stats row */}
+        {result && !isSearching && (
+          <div className="stats-row">
+            <div className="stat-pill">
+              <span className="stat-dot"/>
+              <strong>{displayCount.toLocaleString()}</strong> investigators matched
+            </div>
+            <div className="stat-pill">
+              <Icon.Star size={12}/>
+              <strong>{result.risingStarCount}</strong> rising stars
+            </div>
+            <div className="stat-pill">
+              <Icon.TestTube size={12}/>
+              <strong>{result.registriesQueried}</strong> registries queried
+            </div>
+            <div className="stat-pill">
+              <span className="mono" style={{ fontSize: 11 }}>⚡</span>
+              <strong>{(result.queryMs / 1000).toFixed(1)}s</strong> query time
+            </div>
+          </div>
+        )}
 
         {/* Filter row */}
         <div style={{ marginTop: 16, display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
@@ -165,6 +183,21 @@ export default function SearchView({
                   </td>
                 </tr>
               )}
+              {isSearching && sorted.length === 0 && (
+                Array.from({ length: 5 }).map((_, i) => (
+                  <tr key={`sk-${i}`} className="skeleton-row">
+                    <td><div className="skeleton-cell" style={{ width: 28, height: 28, borderRadius: '50%' }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: `${60 + (i * 13) % 30}%` }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: '70%' }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: '80%' }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: 32, marginLeft: 'auto' }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: 28, marginLeft: 'auto' }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: 64 }}/></td>
+                    <td><div className="skeleton-cell" style={{ width: 36, marginLeft: 'auto' }}/></td>
+                    <td/>
+                  </tr>
+                ))
+              )}
               {sorted.map(inv => (
                 <tr
                   key={inv.id}
@@ -178,12 +211,17 @@ export default function SearchView({
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span style={{ fontWeight: 500 }}>Dr. {inv.name}</span>
                       {inv.isRisingStar && <span className="rising-star-badge">Rising star</span>}
+                      {inv.rareDiseaseExpert && <span className="badge badge-info" style={{ height: 14, fontSize: 9, padding: '0 4px' }}>Rare</span>}
                       {inv.has483Flag && <span style={{ color: 'var(--atlas-danger-500)', display:'flex' }} title="FDA 483 flag"><Icon.AlertTriangle size={12}/></span>}
                     </div>
-                    <div className="muted mono" style={{ fontSize: 11 }}>{inv.credentials}</div>
+                    <div style={{ display: 'flex', gap: 3, marginTop: 3 }}>
+                      {inv.phaseExperience.map(p => (
+                        <span key={p} className="phase-chip">{p.replace('Phase ', 'Ph')}</span>
+                      ))}
+                    </div>
                   </td>
                   <td>
-                    <div>{inv.site}</div>
+                    <div style={{ fontWeight: 500 }}>{inv.site}</div>
                     <div className="muted" style={{ fontSize: 11 }}>{inv.city}, {inv.country}</div>
                   </td>
                   <td>
@@ -191,9 +229,12 @@ export default function SearchView({
                       {inv.indicationTags.slice(0, 2).map(t => (
                         <span key={t} className="badge-tag">{t}</span>
                       ))}
+                      {inv.indicationTags.length > 2 && (
+                        <span className="badge-tag" style={{ background: 'var(--atlas-neutral-50)', color: 'var(--atlas-fg-muted)' }}>+{inv.indicationTags.length - 2}</span>
+                      )}
                     </div>
                   </td>
-                  <td className="num">{inv.enrollments}</td>
+                  <td className="num">{inv.enrollments.toLocaleString()}</td>
                   <td className="num">{inv.velocity}</td>
                   <td><StatusBadge status={inv.status}/></td>
                   <td className="num"><FitCell score={inv.fit}/></td>
@@ -213,9 +254,15 @@ export default function SearchView({
           </table>
         </div>
 
-        <div className="muted" style={{ fontSize: 12, marginTop: 12, display: 'flex', alignItems: 'center', gap: 6 }}>
-          <Icon.Check size={14}/>
-          Every row cites at least 3 primary sources. Click an investigator to view the full dossier.
+        <div className="registry-bar">
+          <span className="muted" style={{ fontSize: 11 }}>Live data:</span>
+          <span className="registry-tag registry-tag-ct">ClinicalTrials.gov</span>
+          <span className="registry-tag registry-tag-pm">PubMed</span>
+          <span className="registry-tag registry-tag-oa">OpenAlex</span>
+          <span className="registry-tag registry-tag-npi">NPI/NPPES</span>
+          <span className="registry-tag registry-tag-fda">FDA BMIS</span>
+          <span className="registry-tag registry-tag-who">WHO ICTRP</span>
+          <span className="muted" style={{ fontSize: 11, marginLeft: 'auto' }}>Every record cites ≥3 primary sources</span>
         </div>
       </div>
     </main>
