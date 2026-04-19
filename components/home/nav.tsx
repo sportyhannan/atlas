@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, SVGProps } from "react";
 import {
@@ -93,12 +94,19 @@ export function Nav({
 }) {
   return (
     <aside className="flex h-full flex-col border-r border-neutral-200 bg-white">
-      <div className="flex h-14 items-center gap-2 border-b border-neutral-200 px-4">
-        <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-700 font-mono text-xs text-white">
-          A
-        </span>
+      <Link
+        href="/"
+        className="flex h-14 items-center gap-2 border-b border-neutral-200 px-4 transition hover:bg-neutral-50"
+      >
+        <Image
+          src="/atlas.png"
+          alt="Atlas"
+          width={28}
+          height={28}
+          className="h-7 w-7 rounded-md object-cover"
+        />
         <span className="font-semibold text-neutral-900">Atlas</span>
-      </div>
+      </Link>
 
       <div className="flex-1 overflow-y-auto px-2 py-2">
         <Section title="Workspace" items={WORKSPACE} active={active} onNav={onNav} />
