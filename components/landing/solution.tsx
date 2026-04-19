@@ -16,9 +16,10 @@ export function Solution() {
               Six weeks becomes seconds.
             </h2>
             <p className="mt-3 text-neutral-600">
-              Describe the trial in plain English. Three Mastra agents resolve
-              identities, enrich from public registries, and score candidates against
-              eight factors — returning a ranked dossier.
+              Describe the trial in plain English. A planner agent extracts filters,
+              a search agent fans out across twelve public registries, and a rating
+              agent scores the shortlist against eight factors — returning an
+              evidence-cited dossier in seconds.
             </p>
           </div>
         </FadeIn>
