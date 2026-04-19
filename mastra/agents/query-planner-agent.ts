@@ -4,7 +4,7 @@ import { openai } from "@ai-sdk/openai";
 export const queryPlannerAgent = new Agent({
   id: "investigator-query-planner",
   name: "investigator-query-planner",
-  model: openai("gpt-4o-mini"),
+  model: openai("gpt-5"),
   tools: {},
   instructions: `You convert a natural-language request for clinical-trial investigators into structured search filters.
 

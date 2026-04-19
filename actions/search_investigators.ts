@@ -15,7 +15,7 @@ export type InvestigatorSearchResult = {
   candidates: Candidate[];
 };
 
-const structuringModel = openai("gpt-4o-mini");
+const structuringModel = openai("gpt-5");
 
 export async function searchInvestigators(
   query: string,

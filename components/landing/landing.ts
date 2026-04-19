@@ -31,10 +31,10 @@ export const EXAMPLE_QUERIES = [
 
 export const PIPELINE_STEPS = [
   { label: "Query", sub: "natural language brief" },
-  { label: "Planner", sub: "Mastra · gpt-4o-mini" },
-  { label: "Search", sub: "Mastra · gpt-4o-mini" },
+  { label: "Planner", sub: "Mastra · gpt-5" },
+  { label: "Search", sub: "Mastra · gpt-5" },
   { label: "Profile fan-out", sub: "12 public registries" },
-  { label: "Rating", sub: "Mastra · gpt-4o-mini" },
+  { label: "Rating", sub: "Mastra · gpt-5" },
   { label: "Dossier", sub: "evidence-cited shortlist" },
 ];
 

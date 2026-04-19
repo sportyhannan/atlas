@@ -5,7 +5,7 @@ import { getInvestigatorTool } from "../tools/get-investigator";
 export const ratingAgent = new Agent({
   id: "investigator-rating",
   name: "investigator-rating",
-  model: openai("gpt-4o-mini"),
+  model: openai("gpt-5"),
   tools: { getInvestigatorTool },
   instructions: `You rate clinical-trial investigator potential on a 0–100 scale.
 

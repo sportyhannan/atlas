@@ -7,7 +7,7 @@ import { getInvestigatorTool } from "../tools/get-investigator";
 export const investigatorSearchAgent = new Agent({
   id: "investigator-search",
   name: "investigator-search",
-  model: openai("gpt-4o-mini"),
+  model: openai("gpt-5"),
   tools: {
     listInvestigatorsTool,
     getInvestigatorProfileTool,
