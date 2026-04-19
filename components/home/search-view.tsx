@@ -1,10 +1,18 @@
 "use client";
 
+import { useMemo } from "react";
 import type { Investigator } from "@/types/investigator";
 import type { HomeData } from "./types";
 import { FitIndicator } from "./primitives/fit-indicator";
 import { StatusBadge } from "./primitives/status-badge";
 import { isRisingStar } from "./helpers";
+
+export type AgentMatch = {
+  id: string;
+  name: string;
+  reason: string;
+  supporting_signals: string[];
+};
 
 export function SearchView({
   investigators,
@@ -12,20 +20,47 @@ export function SearchView({
   selectedId,
   onSelect,
   query,
+  isSearching,
+  searchError,
+  agentMatches,
 }: {
   investigators: Investigator[];
   data: HomeData;
   selectedId: string | null;
   onSelect: (inv: Investigator) => void;
   query: string;
+  isSearching: boolean;
+  searchError: string | null;
+  agentMatches: AgentMatch[] | null;
 }) {
   const risingCount = investigators.filter(isRisingStar).length;
+  const matchById = useMemo(() => {
+    const m = new Map<string, AgentMatch>();
+    for (const c of agentMatches ?? []) m.set(c.id, c);
+    return m;
+  }, [agentMatches]);
+
+  if (isSearching) {
+    return (
+      <div className="flex flex-col gap-4 px-6 py-5">
+        <div className="rounded-2xl border border-neutral-200 bg-white p-10 text-center">
+          <div className="inline-flex items-center gap-2 text-sm text-neutral-600">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-600" />
+            Agents are searching across 12 data sources…
+          </div>
+          <div className="mt-1 text-xs text-neutral-500">
+            Planner → investigator search → cross-linked profile
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4 px-6 py-5">
       <div>
         <div className="text-[11px] font-medium uppercase tracking-wide text-emerald-700">
-          {query ? "Results" : "All investigators"}
+          {query ? "Agent results" : "All investigators"}
         </div>
         <h2 className="mt-1 text-xl font-semibold tracking-tight text-neutral-900">
           {investigators.length}{" "}
@@ -37,6 +72,12 @@ export function SearchView({
           )}
         </h2>
       </div>
+
+      {searchError && (
+        <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-2 text-xs text-red-800">
+          Search failed: {searchError}
+        </div>
+      )}
 
       {investigators.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-neutral-200 bg-white p-10 text-center">
@@ -66,6 +107,7 @@ export function SearchView({
                   data={data}
                   selected={inv.id === selectedId}
                   onSelect={() => onSelect(inv)}
+                  match={matchById.get(inv.id) ?? null}
                 />
               ))}
             </tbody>
@@ -81,11 +123,13 @@ function Row({
   data,
   selected,
   onSelect,
+  match,
 }: {
   inv: Investigator;
   data: HomeData;
   selected: boolean;
   onSelect: () => void;
+  match: AgentMatch | null;
 }) {
   const has483 = data.fda483.some((l) => l.resolved_investigator_ids?.includes(inv.id));
   const rising = isRisingStar(inv);
@@ -118,6 +162,24 @@ function Row({
           {inv.site_name}
           {inv.site_location ? ` · ${inv.site_location}` : ""}
         </div>
+        {match && (
+          <div className="mt-1.5 text-[11px] leading-relaxed text-emerald-900/80">
+            <span className="font-medium">Why: </span>
+            {match.reason}
+            {match.supporting_signals.length > 0 && (
+              <div className="mt-1 flex flex-wrap gap-1">
+                {match.supporting_signals.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded bg-emerald-50 px-1.5 py-0.5 font-mono text-[10px] text-emerald-800"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </td>
       <td className="px-4 py-3">
         <div className="flex flex-wrap gap-1">
