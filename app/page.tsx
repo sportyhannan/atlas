@@ -5,8 +5,8 @@ export default async function Home() {
   const investigators = await fetchInvestigators();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-sky-50 to-blue-100">
-      <div className="text-center">
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-gradient-to-br from-sky-50 to-blue-100 py-12 px-4">
+      <div className="text-center w-full max-w-4xl">
         <Image
           src="/hackprinceton.png"
           alt="HackPrinceton"
@@ -16,7 +16,7 @@ export default async function Home() {
           className="mx-auto"
         />
         <h1 className="mt-6 text-6xl font-bold tracking-tight text-sky-900">
-          hackprinceton
+          Clinical Trial Investigators
         </h1>
         <p className="mt-4 text-lg text-sky-600">
           {investigators.length} investigator
@@ -26,7 +26,7 @@ export default async function Home() {
           {investigators.map((inv) => (
             <li
               key={inv.id}
-              className="rounded-lg border border-sky-200 bg-white/70 p-4 text-sky-900"
+              className="rounded-lg border border-sky-200 bg-white/70 p-4 text-sky-900 hover:shadow-lg transition-shadow"
             >
               <div className="flex items-baseline justify-between gap-4">
                 <strong>{inv.name}</strong>
