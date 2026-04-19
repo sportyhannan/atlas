@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HackMTC",
-  description: "Created with love",
+  title: "Atlas",
+  description:
+    "Atlas compresses six weeks of investigator feasibility work into seconds.",
 };
 
 export default function RootLayout({
