@@ -1,0 +1,21 @@
+export type ictrp_trials = {
+  id: string;
+  ictrp_id: string | null;
+  source_registry: string | null;
+  public_title: string | null;
+  scientific_title: string | null;
+  study_type: string | null;
+  phase: string | null;
+  overall_status: string | null;
+  condition: string | null;
+  intervention: string | null;
+  primary_sponsor: string | null;
+  countries: string[] | null;
+  primary_contact_name: string | null;
+  primary_contact_email: string | null;
+  date_registration: string | null;
+  date_enrolling: string | null;
+  target_size: number | null;
+  resolved_investigator_id: string | null;
+  ingested_at: string;
+};
