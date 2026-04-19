@@ -1,0 +1,20 @@
+export type clinicaltrials_studies = {
+  id: string;
+  nct_id: string | null;
+  brief_title: string | null;
+  official_title: string | null;
+  phase: string | null;
+  overall_status: string | null;
+  sponsor: string | null;
+  responsible_party_type: string | null;
+  conditions: string[] | null;
+  interventions: string[] | null;
+  enrollment_count: number | null;
+  enrollment_type: string | null;
+  start_date: string | null;
+  primary_completion_date: string | null;
+  study_type: string | null;
+  is_regeneron: boolean | null;
+  raw_json: unknown;
+  ingested_at: string;
+};
