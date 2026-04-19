@@ -1,0 +1,20 @@
+export type fda_bmis = {
+  id: string;
+  bmis_id: string | null;
+  full_name: string | null;
+  entity_type: string | null;
+  address_line_1: string | null;
+  address_line_2: string | null;
+  city: string | null;
+  state: string | null;
+  zip: string | null;
+  country: string | null;
+  ind_number: string | null;
+  submission_type: string | null;
+  sponsor: string | null;
+  receipt_date: string | null;
+  study_drug: string | null;
+  indication: string | null;
+  resolved_investigator_id: string | null;
+  ingested_at: string;
+};
