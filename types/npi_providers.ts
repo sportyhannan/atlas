@@ -1,0 +1,24 @@
+export type npi_providers = {
+  id: string;
+  npi: string | null;
+  provider_type: string | null;
+  name_last: string | null;
+  name_first: string | null;
+  name_middle: string | null;
+  name_credential: string | null;
+  gender: string | null;
+  enumeration_date: string | null;
+  last_updated: string | null;
+  deactivation_date: string | null;
+  primary_taxonomy: string | null;
+  taxonomy_desc: string | null;
+  practice_address_1: string | null;
+  practice_city: string | null;
+  practice_state: string | null;
+  practice_zip: string | null;
+  practice_country: string | null;
+  practice_phone: string | null;
+  is_oncology: boolean | null;
+  resolved_investigator_id: string | null;
+  ingested_at: string;
+};
