@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const LINKS = [
   { href: "#problem", label: "Problem" },
   { href: "#solution", label: "How it works" },
@@ -10,9 +12,14 @@ export function Navigation() {
     <header className="sticky top-0 z-40 border-b border-neutral-200/80 bg-white/80 backdrop-blur">
       <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a href="#top" className="flex items-center gap-2 font-semibold text-neutral-900">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-emerald-700 font-mono text-xs text-white">
-            A
-          </span>
+          <Image
+            src="/atlas.png"
+            alt="Atlas"
+            width={28}
+            height={28}
+            priority
+            className="h-7 w-7 rounded-md object-cover"
+          />
           Atlas
         </a>
         <ul className="hidden items-center gap-6 text-sm text-neutral-600 md:flex">

@@ -7,22 +7,6 @@ export function isRisingStar(inv: Investigator): boolean {
   return (inv.score_trajectory ?? 0) >= RISING_STAR_THRESHOLD;
 }
 
-export function matchesQuery(inv: Investigator, query: string): boolean {
-  const q = query.trim().toLowerCase();
-  if (!q) return true;
-  const tokens = q.split(/[\s,]+/).filter(Boolean);
-  const hay = [
-    inv.name,
-    inv.site_name,
-    inv.site_location ?? "",
-    (inv.focus ?? []).join(" "),
-    inv.status,
-  ]
-    .join(" ")
-    .toLowerCase();
-  return tokens.some((t) => hay.includes(t));
-}
-
 export function trialsFor(inv: Investigator, data: HomeData) {
   const cts = data.ctInvestigators.filter(
     (row) => row.resolved_investigator_id === inv.id,
