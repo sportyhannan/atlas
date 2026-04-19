@@ -10,12 +10,14 @@ export function Topbar({
   onSearch,
   risingStarsOnly,
   onToggleRisingStars,
+  isSearching,
 }: {
   query: string;
   setQuery: (q: string) => void;
   onSearch: () => void;
   risingStarsOnly: boolean;
   onToggleRisingStars: () => void;
+  isSearching: boolean;
 }) {
   const [showDemos, setShowDemos] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -29,10 +31,11 @@ export function Topbar({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") onSearch();
+            if (e.key === "Enter" && !isSearching) onSearch();
           }}
-          placeholder="Search investigators — name, site, or focus"
-          className="h-9 w-full rounded-lg border border-neutral-200 bg-white pl-9 pr-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600"
+          disabled={isSearching}
+          placeholder="Ask anything — e.g. oncology PIs in TX with NSCLC trial experience"
+          className="h-9 w-full rounded-lg border border-neutral-200 bg-white pl-9 pr-3 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-emerald-600 focus:outline-none focus:ring-1 focus:ring-emerald-600 disabled:opacity-60"
         />
       </div>
 
@@ -78,10 +81,11 @@ export function Topbar({
       <button
         type="button"
         onClick={onSearch}
-        className="flex h-9 items-center gap-2 rounded-lg bg-emerald-700 px-4 text-sm font-medium text-white transition hover:bg-emerald-800"
+        disabled={isSearching}
+        className="flex h-9 items-center gap-2 rounded-lg bg-emerald-700 px-4 text-sm font-medium text-white transition hover:bg-emerald-800 disabled:opacity-70"
       >
         <SearchIcon className="h-4 w-4" />
-        Search
+        {isSearching ? "Searching…" : "Search"}
       </button>
     </div>
   );
