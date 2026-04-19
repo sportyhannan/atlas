@@ -31,11 +31,11 @@ export const EXAMPLE_QUERIES = [
 
 export const PIPELINE_STEPS = [
   { label: "Query", sub: "natural language brief" },
-  { label: "Gemini 2.5 Flash", sub: "intent + constraints" },
-  { label: "Enrichment", sub: "Mastra agent" },
-  { label: "Identity", sub: "Mastra agent" },
-  { label: "Scoring", sub: "Mastra agent" },
-  { label: "Dossier", sub: "ranked shortlist" },
+  { label: "Planner", sub: "Mastra · gpt-4o-mini" },
+  { label: "Search", sub: "Mastra · gpt-4o-mini" },
+  { label: "Profile fan-out", sub: "12 public registries" },
+  { label: "Rating", sub: "Mastra · gpt-4o-mini" },
+  { label: "Dossier", sub: "evidence-cited shortlist" },
 ];
 
 export const SCORE_FACTORS = [
@@ -61,12 +61,11 @@ export const DATA_SOURCES = [
 export type ReasoningStep = { agent: string; message: string; tone: "info" | "ok" | "warn" };
 
 export const DEMO_TRACE: ReasoningStep[] = [
-  { agent: "Intent", message: "Parsed: Phase 3 R/R DLBCL, rising-star investigators only", tone: "info" },
-  { agent: "Enrichment", message: "Pulled 1,284 DLBCL trials from CT.gov + WHO ICTRP", tone: "info" },
-  { agent: "Enrichment", message: "Joined PubMed velocity across 3,402 authors", tone: "info" },
-  { agent: "Identity", message: "Resolved 612 unique investigators via NPI + OpenAlex", tone: "info" },
-  { agent: "Scoring", message: "Filtered: >2yr experience, velocity Δ > +40%, no 483 flags", tone: "warn" },
-  { agent: "Scoring", message: "Top match: Dr. Chuka Okonkwo — fit 92, velocity +68% YoY", tone: "ok" },
+  { agent: "Planner", message: "Parsed: Phase 3 R/R DLBCL, rising-star investigators only", tone: "info" },
+  { agent: "Search", message: "list-investigators → 612 hub rows, shortlisted 24 by focus + fit_score", tone: "info" },
+  { agent: "Search", message: "get-investigator-profile → joined CT.gov, ICTRP, PubMed, OpenAlex, NPI, FDA BMIS, 483, CMS", tone: "info" },
+  { agent: "Search", message: "Ranked 12 survivors by indication match + publication velocity, penalised 483 flags", tone: "warn" },
+  { agent: "Rating", message: "Top match: Dr. Chuka Okonkwo — fit 92, velocity +68% YoY", tone: "ok" },
 ];
 
 export const DEMO_RESULT = {
