@@ -1,4 +1,4 @@
-# Atlas — The talent layer for global clinical trials azra
+# Atlas — The talent layer for global clinical trials azra yes
 
 > Moneyball for clinical trial investigators. Built at HackPrinceton Spring 2026.
 
