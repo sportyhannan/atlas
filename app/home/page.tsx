@@ -1,54 +1,62 @@
-import Image from "next/image";
 import { fetchInvestigators } from "@/actions/investigators";
-import BackToLanding from "@/components/landing/landingbutton/back-to-landing";
-import RateInvestigatorForm from "@/components/rate-investigator-form";
+import { fetchClinicaltrialsInvestigators } from "@/actions/clinicaltrials_investigators";
+import { fetchClinicaltrialsStudies } from "@/actions/clinicaltrials_studies";
+import { fetchIctrpTrials } from "@/actions/ictrp_trials";
+import { fetchPubmedArticles } from "@/actions/pubmed_articles";
+import { fetchFda483Letters } from "@/actions/fda_483_letters";
+import { fetchFdaBmis } from "@/actions/fda_bmis";
+import { fetchCmsOpenPayments } from "@/actions/cms_open_payments";
+import { fetchNpiProviders } from "@/actions/npi_providers";
+import { fetchOpenalexAuthors } from "@/actions/openalex_authors";
+import { fetchIdentityResolutionMatches } from "@/actions/identity_resolution_matches";
+import { fetchAgentScoringRuns } from "@/actions/agent_scoring_runs";
+import { HomePage } from "@/components/home/home-page";
 
 export default async function Home() {
-  const investigators = await fetchInvestigators();
+  const [
+    investigators,
+    ctInvestigators,
+    ctStudies,
+    ictrpTrials,
+    pubmed,
+    fda483,
+    fdaBmis,
+    payments,
+    npi,
+    openalex,
+    identity,
+    ratings,
+  ] = await Promise.all([
+    fetchInvestigators(),
+    fetchClinicaltrialsInvestigators(),
+    fetchClinicaltrialsStudies(),
+    fetchIctrpTrials(),
+    fetchPubmedArticles(),
+    fetchFda483Letters(),
+    fetchFdaBmis(),
+    fetchCmsOpenPayments(),
+    fetchNpiProviders(),
+    fetchOpenalexAuthors(),
+    fetchIdentityResolutionMatches(),
+    fetchAgentScoringRuns(),
+  ]);
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-gradient-to-br from-sky-50 to-blue-100">
-      <BackToLanding />
-      <div className="text-center">
-        <Image
-          src="/hackprinceton.png"
-          alt="HackPrinceton"
-          width={300}
-          height={300}
-          priority
-          className="mx-auto h-auto w-auto"
-        />
-        <h1 className="mt-6 text-6xl font-bold tracking-tight text-sky-900">
-          hackprinceton
-        </h1>
-        <p className="mt-4 text-lg text-sky-600">
-          {investigators.length} investigator
-          {investigators.length === 1 ? "" : "s"} loaded
-        </p>
-        <RateInvestigatorForm />
-        <ul className="mx-auto mt-8 max-w-2xl space-y-3 text-left">
-          {investigators.map((inv) => (
-            <li
-              key={inv.id}
-              className="rounded-lg border border-sky-200 bg-white/70 p-4 text-sky-900"
-            >
-              <div className="flex items-baseline justify-between gap-4">
-                <strong>{inv.name}</strong>
-                <span className="text-sm text-sky-600">fit {inv.fit_score}</span>
-              </div>
-              <div className="text-sm text-sky-700">
-                {inv.site_name}
-                {inv.site_location ? ` · ${inv.site_location}` : ""}
-              </div>
-              <div className="mt-1 text-xs text-sky-600">
-                focus: {inv.focus.join(", ") || "—"} · enrollments{" "}
-                {inv.enrollments} · velocity/yr {inv.velocity_per_year} ·{" "}
-                {inv.status}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <HomePage
+      data={{
+        investigators,
+        ctInvestigators,
+        ctStudies,
+        ictrpTrials,
+        pubmed,
+        fda483,
+        fdaBmis,
+        payments,
+        npi,
+        openalex,
+        identity,
+        ratings,
+      }}
+    />
   );
 }
