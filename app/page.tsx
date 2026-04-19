@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { fetchInvestigators } from "@/actions/investigators";
+import RateInvestigatorForm from "@/components/rate-investigator-form";
 
 export default async function Home() {
   const investigators = await fetchInvestigators();
@@ -22,6 +23,7 @@ export default async function Home() {
           {investigators.length} investigator
           {investigators.length === 1 ? "" : "s"} loaded
         </p>
+        <RateInvestigatorForm />
         <ul className="mx-auto mt-8 max-w-2xl space-y-3 text-left">
           {investigators.map((inv) => (
             <li
