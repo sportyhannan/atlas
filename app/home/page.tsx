@@ -16,7 +16,7 @@ export default async function Home() {
           width={300}
           height={300}
           priority
-          className="mx-auto"
+          className="mx-auto h-auto w-auto"
         />
         <h1 className="mt-6 text-6xl font-bold tracking-tight text-sky-900">
           hackprinceton
