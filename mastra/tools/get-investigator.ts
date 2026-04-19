@@ -1,6 +1,6 @@
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
-import { getInvestigatorById } from "@/lib/investigators";
+import { getInvestigatorById } from "@/lib/data/investigator";
 
 const score = z.number().int().min(0).max(100);
 
